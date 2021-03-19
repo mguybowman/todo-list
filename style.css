@@ -1,0 +1,586 @@
+:root {
+    --theme-gray: #BBB;
+    --theme-green: rgb(122, 206, 12);
+    --theme-blue: rgb(23, 83, 248);
+    --theme-red: rgb(223, 53, 48);
+    --theme-orange: orange;
+    --theme-yellow: rgb(240, 224, 1);
+    --theme-purple: rebeccapurple;
+    --theme-pink: rgb(245, 164, 177);
+    --theme-teal: rgb(14, 143, 143);
+    --theme-sky: rgb(85, 144, 255);
+    --theme-rose: rgb(212, 42, 113);
+    --theme-emerald: rgb(20, 119, 61);
+    --theme-color: var(--theme-purple);
+    --bg-color: white;
+    --bg-color-secondary: #F8F8F8;
+    --border-color: #DDD;
+    --text-color: #222;
+    --text-color-secondary: #696969;
+    --text-size: 16px;
+}
+
+.gray {background-color: var(--theme-gray) !important}
+.blue {background-color: var(--theme-blue) !important}
+.red {background-color: var(--theme-red) !important}
+.green {background-color: var(--theme-green) !important}
+.yellow {background-color: var(--theme-yellow) !important}
+.purple {background-color: var(--theme-purple) !important}
+.pink {background-color: var(--theme-pink) !important}
+.teal {background-color: var(--theme-teal) !important}
+.orange {background-color: var(--theme-orange) !important}
+.rose {background-color: var(--theme-rose) !important}
+.sky {background-color: var(--theme-sky) !important}
+.emerald {background-color: var(--theme-emerald) !important}
+
+.mHide {display:none}
+.mShow {display:block}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: var(--text-size);
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text-color);
+    min-width: 320px;
+}
+
+#header {
+    width: 100%;
+    background-color: var(--theme-color);
+    color: var(--bg-color);
+    height: calc(3 * var(--text-size));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1000;
+}
+
+h1 {
+    font-size: 1em;
+    line-height: 1em;
+    padding: 0;
+    margin: 0;
+}
+
+#menuButton {
+    outline: none;
+    border: none;
+    background: none;
+    position: absolute;
+    right: var(--text-size);
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+#menuButtonInner {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 5px;
+    height: 22px;
+    width: 22px;
+}
+
+#hamburger0, #hamburger1, #hamburger2 {
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg-color);
+    border-radius: 1px;
+}
+
+#main {
+    width: 100%;
+    padding-top: calc(3 * var(--text-size));
+    min-height: calc(100vh - calc(3 * var(--text-size)));
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#nav {
+    background-color: var(--bg-color-secondary);
+    overflow: hidden;
+}
+
+#navInner {
+    margin: calc(1.5 * var(--text-size)) 0;
+}
+
+#navInner .tab {
+    min-height: calc(3 * var(--text-size));
+    line-height: 1em;
+    display: flex;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#navInner .tab:hover {
+    background-color: var(--bg-color);
+    font-weight: bold;
+}
+
+#navInner .tab .dot {
+    min-width: var(--text-size);
+    height: var(--text-size);
+    border-radius: 50%;
+    background-color: var(--theme-gray);
+    margin: var(--text-size) 0 0 calc(2 * var(--text-size));
+}
+
+#navInner .tab .title {
+    margin: var(--text-size) calc(2 * var(--text-size)) var(--text-size) var(--text-size);
+}
+
+#navInner #addProjectTab {
+    color: var(--text-color-secondary);
+}
+
+#navInner #addProjectTab:hover,
+#navInner #addProjectTab.tab.active {
+    color: var(--text-color)
+}
+
+#navInner #addProjectTab .plus {
+    margin: var(--text-size) 0 0 calc(2 * var(--text-size));
+    height: var(--text-size);
+    width: var(--text-size);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#content {
+    overflow: hidden;
+}
+
+.page {
+    position: relative;
+    margin: calc(2 * var(--text-size));
+}
+
+h2 {
+    font-size: calc(2 * var(--text-size));
+    line-height: calc(2 * var(--text-size));
+    margin: 0 0 var(--text-size) 0;
+    padding: 0;
+}
+
+#editProject {
+    display: inline;
+    visibility: hidden;
+    font-size: var(--text-size);
+    margin-left: var(--text-size);
+    font-weight: normal;
+    margin-bottom: 0;
+    line-height: var(--text-size);
+    color: var(--text-color-secondary);
+    cursor: pointer;
+}
+
+h2:hover #editProject {
+    visibility: visible;
+}
+
+#editProject:hover {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+input {
+    outline: none;
+    border: 1px solid var(--border-color);
+    font-size: var(--text-size);
+    padding: var(--text-size);
+    margin-bottom: var(--text-size);
+}
+
+#addProjectInput, #editProjectInput {
+    width: calc(100% - (2 * var(--text-size)) - 2px);
+}
+
+.colorRow {
+    display: flex;
+    margin-bottom: var(--text-size);
+    align-items: center;
+}
+
+.colorRow label {
+    margin-right: var(--text-size);
+}
+
+.swatch {
+    display: inline-block;
+    height: 52px;
+    width: 52px;
+}
+
+.colorSelect {
+    padding: var(--text-size);
+    padding-top: calc(var(--text-size) - 1px);
+    outline: none;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    display: inline-block;
+    color: var(--text-color);
+    font-size: var(--text-size);
+    line-height: var(--text-size);
+    text-transform: capitalize;
+}
+
+.inputFooter {
+    height: calc(3 * var(--text-size));
+    width: 100%;
+    position: relative;
+}
+
+button {
+    outline:none;
+}
+
+.addSave {
+    line-height: var(--text-size);
+    border: none;
+    background-color: var(--theme-color);
+    font-size: var(--text-size);
+    color: var(--bg-color);
+    padding: var(--text-size);
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.addSave:hover {
+    box-shadow: 0 1px 2px var(--theme-color);
+}
+
+.cancel {
+    line-height: var(--text-size);
+    border: none;
+    background: transparent;
+    font-size: var(--text-size);
+    color: var(--text-color-secondary);
+    padding: var(--text-size);
+    cursor: pointer;
+}
+
+.cancel:hover {
+    text-decoration: underline;
+}
+
+#dotSelect {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(3 * var(--text-size));
+}
+
+#projectDot {
+    width: var(--text-size);
+    height: var(--text-size);
+    border-radius: 50%;
+    margin: 0 calc(.5 * var(--text-size));
+}
+
+#lArrow, #rArrow {
+    height: 6px;
+    width: 6px;
+    cursor: pointer;
+}
+
+#lArrow {
+    transform:rotate(-45deg);
+    border-top: 2px solid var(--text-color-secondary);
+    border-left: 2px solid var(--text-color-secondary);
+}
+
+#rArrow {
+    transform:rotate(45deg);
+    border-top: 2px solid var(--text-color-secondary);
+    border-right: 2px solid var(--text-color-secondary);
+}
+
+#lArrow:hover, #rArrow:hover {
+    border-color: var(--text-color);
+}
+
+.task {
+    padding: var(--text-size);
+    display: grid;
+    grid-template-columns: 16px 1fr 32px;
+    gap: 2px var(--text-size);
+    border-top: 1px solid var(--border-color)
+}
+.task:first-child {
+    border-top: none;
+}
+
+.task:hover {
+    background-color: var(--bg-color-secondary);
+}
+
+.task .check {
+    width: calc(var(--text-size) - 2px);
+    height: calc(var(--text-size) - 2px);
+    border: 2px solid var(--text-color-secondary);
+    background-color: var(--bg-color-secondary);
+    border-radius: 50%;
+    margin-right: var(--text-size);
+    cursor: pointer;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    position: relative;
+    top: -2px;
+}
+
+.task .check:hover {
+    background-color: var(--theme-color);
+}
+
+.task .title {
+    display: flex;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.task .edit {
+    visibility: hidden;
+    color: var(--text-color-secondary);
+    cursor: pointer;
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    text-align: right;
+}
+
+.task .edit:hover {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+.task:hover .edit {
+    visibility: visible;
+}
+
+.task .description {
+    color: var(--text-color-secondary);
+    font-size: var(--text-size);
+    grid-column: 2 / 4;
+}
+
+.task .finePrint {
+    color: var(--text-color);
+    font-size: calc(var(--text-size) - 2px);
+    font-weight: bold;
+    grid-column: 2 / 4;
+    display: flex;
+    align-items: center;
+}
+
+.task .dueDate, .task .priority {
+    display: inline-block;
+}
+
+.task .priority {
+    margin-right: 4px;
+}
+
+.task .finePrint > div:nth-child(2)::before {
+    content: "- ";
+}
+
+#addTaskInner {
+    padding: var(--text-size);
+    display: flex;
+    cursor: pointer;
+    color: var(--text-color-secondary);
+}
+
+#addTaskInner.topBorder {
+    border-top: 1px solid var(--border-color);
+}
+
+#addTaskInner:hover {
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+#addTaskInner .plus {
+    width: 16px;
+    height: 16px;
+    font-weight: bold;
+    font-size: calc(1.5 * var(--text-size));
+    line-height: calc(1.5 * var(--text-size));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--text-size);
+}
+
+#inputTitle {
+    margin-bottom: var(--text-size);
+    width: calc(100% - 30px);
+}
+
+#inputDate {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: calc(var(--text-size) - 2px) var(--text-size);
+    font-size: var(--text-size);
+    line-height: var(--text-size);
+    color: var(--text-color);
+    margin-left: var(--text-size);
+    width: 140px;
+}
+
+#inputPriority{
+    margin-left: var(--text-size);
+    padding: var(--text-size);
+    border: 1px solid var(--border-color);
+    outline: none;
+    background-color: var(--bg-color);
+    margin-bottom: var(--text-size);
+    color: var(--text-color);
+    font-size: var(--text-size);
+}
+
+option {
+    color: var(--text-color);
+}
+
+#inputDescription {
+    width: calc(100% - 29px);
+    padding: var(--text-size);
+    font-size: var(--text-size);
+    border-color: var(--border-color);
+    outline: none;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text-color);
+    height: 92px;
+    margin-bottom: calc(var(--text-size) - 2px);
+}
+
+.delete {
+    position: absolute;
+    right: 0;
+    padding: var(--text-size) 0;
+    font-size: var(--text-size);
+    color: var(--theme-red);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.delete:hover {
+    text-decoration: underline;
+}
+
+#deleteTaskPrompt, #deleteProjectPrompt {
+    margin-top: calc(2 * var(--text-size));
+    text-align: center;
+}
+
+#deleteTaskPrompt label,
+#deleteProjectPrompt label {
+    margin-bottom:  var(--text-size);
+    display: block;
+    font-weight: bold;
+}
+
+.confirmDelete {
+    padding: var(--text-size);
+    border: none;
+    color: var(--bg-color);
+    background-color: var(--theme-red);
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    margin: 0 auto;
+}
+
+.confirmDelete:hover {
+    box-shadow: 0 1px 2px var(--theme-red);
+}
+
+.confirmDelete .cancel {
+    display: block;
+}
+
+#completedHeading {
+    margin: var(--text-size) 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-color-secondary);
+    cursor: pointer;
+}
+
+#completedHeading:hover {
+    color: var(--text-color);
+}
+
+h3 {
+    margin: 0;
+    font-size: calc(1.5 * var(--text-size));
+    font-weight: normal;
+}
+
+#completedDropdown {
+    border-top: 2px solid var(--text-color-secondary);
+    border-right: 2px solid var(--text-color-secondary);
+    width: 8px;
+    height: 8px;
+    position: relative;
+}
+
+#completedHeading:hover #completedDropdown {
+    border-top: 2px solid var(--text-color);
+    border-right: 2px solid var(--text-color);
+}
+
+#completedHeading.show {display: flex;}
+#completedHeading.hide {display: none;}
+
+#completedDropdown.down {
+    transform: rotate(135deg);
+    bottom: 2px;
+}
+
+#completedDropdown.up {
+    transform: rotate(-45deg);
+    top: 2px;
+}
+
+#completed.show {display: block;}
+#completed.hide {display: none;}
+
+#completed .check {
+    background-color: var(--theme-color);
+}
+
+#completed .check:hover {
+    background-color: var(--bg-color-secondary);
+}
+
+@media screen and (min-width: 528px) {
+    #menuButton {display:none}
+    #main {grid-template-columns: 240px 1fr}
+    .mHide {display:block}
+
+    #nav {border-right: 1px solid var(--border-color)}
+
+    #navInner .tab.active {
+        background-color: var(--bg-color);
+        font-weight: bold;
+    }
+}
+
+@media screen and (min-width: 720px) {
+    #main {grid-template-columns: 1fr 2fr}
+}
+
+@media screen and (min-width: 960px) {
+    #main {grid-template-columns: 320px 1fr;}
+}
