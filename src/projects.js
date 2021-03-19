@@ -1,5 +1,5 @@
-import { demoProjects } from './demoProjects'
+import { loadProjectsFromLocalStorage } from './loadProjectsFromLocalStorage'
 let myProjects = []
-myProjects = demoProjects()
+myProjects = loadProjectsFromLocalStorage()
 function projects(){return myProjects}
 export { projects }

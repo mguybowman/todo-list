@@ -13,6 +13,7 @@ import { displayEditTaskPage } from './displayEditTaskPage'
 import { displayDeleteTask } from './displayDeleteTask'
 import { displayEditProjectPage } from './displayEditProjectPage'
 import { displayDeleteProject } from './displayDeleteProject'
+import { saveProjectsToLocalStorage } from './saveProjectsToLocalStorage'
 
 let memory
 
@@ -62,10 +63,12 @@ function loadEventHandlers(){
                 if (e.path.includes(tasks)) {
                     projects()[cpi].completed.push(projects()[cpi].tasks[cti])
                     projects()[cpi].tasks.splice(cti, 1)
+                    saveProjectsToLocalStorage()
                     completedHeading.className = "show"
                 } else if (e.path.includes(completed)) {
                     projects()[cpi].tasks.push(projects()[cpi].completed[cti])
                     projects()[cpi].completed.splice(cti, 1)
+                    saveProjectsToLocalStorage()
                     if (projects()[cpi].completed.length === 0) {
                         completedHeading.className = "hide"
                         completedDropdown.className = "down"
@@ -84,9 +87,9 @@ function loadEventHandlers(){
                 const cti = allEdits[i].dataset.taskIndex
                 const cpi = projectPage.dataset.projectIndex
                 if (e.path.includes(tasks)) {
-                    displayEditTaskPage(cpi, cti, projects()[cpi].tasks[cti])
+                    displayEditTaskPage(cpi, cti, projects()[cpi].tasks[cti],"tasks")
                 } else if (e.path.includes(completed)) {
-                    displayEditTaskPage(cpi, cti, projects()[cpi].completed[cti])
+                    displayEditTaskPage(cpi, cti, projects()[cpi].completed[cti],"completed")
                 }
             }
         }
@@ -124,6 +127,7 @@ function loadEventHandlers(){
             let newProject = createProject(title)
             newProject.color = apcs.value
             projects().push(newProject)
+            saveProjectsToLocalStorage()
             populateNav()
             let index = projects().length - 1
             displayProjectPage(index)
@@ -156,6 +160,7 @@ function loadEventHandlers(){
             newTask.dueDate = inputDate.value
             newTask.priority = inputPriority.value
             projects()[cpi].tasks.push(newTask)
+            saveProjectsToLocalStorage()
             displayProjectPage(cpi)
         } else if (e.path.includes(atcb)) {
             const cpi = addTaskPage.dataset.projectIndex
@@ -163,7 +168,8 @@ function loadEventHandlers(){
         } else if (e.path.includes(editTaskButton)) {
             const cpi = editTaskPage.dataset.projectIndex
             const cti = editTaskPage.dataset.taskIndex
-            const task = projects()[cpi].tasks[cti]
+            const list = editTaskPage.dataset.list
+            const task = projects()[cpi][list][cti]
             let title = inputTitle.value.trim()
             if (title === "") {
                 inputTitle.placeholder = "Give your task a title"
@@ -174,10 +180,20 @@ function loadEventHandlers(){
             task.description = inputDescription.value.trim()
             task.dueDate = inputDate.value
             task.priority = inputPriority.value
+            saveProjectsToLocalStorage()
             displayProjectPage(cpi)
+            if (projects()[cpi].completed.length !== 0 && list === "completed") {
+                document.getElementById("completedDropdown").className = "up"
+                document.getElementById("completed").className = "show"
+            }
         } else if (e.path.includes(etcb)){
             const cpi = editTaskPage.dataset.projectIndex
+            const list = editTaskPage.dataset.list
             displayProjectPage(cpi)
+            if (projects()[cpi].completed.length !== 0 && list === "completed") {
+                document.getElementById("completedDropdown").className = "up"
+                document.getElementById("completed").className = "show"
+            }
         } else if (e.path.includes(deleteTask)) {
             if (deleteTask.dataset.active !== "active"){
                 deleteTask.dataset.active = "active"
@@ -186,8 +202,14 @@ function loadEventHandlers(){
         } else if (e.path.includes(cdt)) {
             const cpi = editTaskPage.dataset.projectIndex
             const cti = editTaskPage.dataset.taskIndex
-            projects()[cpi].tasks.splice(cti, 1)
+            const list = editTaskPage.dataset.list
+            projects()[cpi][list].splice(cti, 1)
+            saveProjectsToLocalStorage()
             displayProjectPage(cpi)
+            if (projects()[cpi].completed.length !== 0 && list === "completed") {
+                document.getElementById("completedDropdown").className = "up"
+                document.getElementById("completed").className = "show"
+            }
         } else if (e.path.includes(cdtc)) {
             document.getElementById("deleteTaskPrompt").remove()
             deleteTask.dataset.active = ""
@@ -200,6 +222,7 @@ function loadEventHandlers(){
             if (epi.value === "") {title = "Untitled"}
             projects()[cpi].title = title
             projects()[cpi].color = epcs.value
+            saveProjectsToLocalStorage()
             populateNav()
             displayProjectPage(cpi)
         } else if (e.path.includes(epcs)) {
@@ -215,6 +238,7 @@ function loadEventHandlers(){
         } else if (e.path.includes(cdp)) {
             const cpi = editProjectPage.dataset.projectIndex
             projects().splice(cpi,1)
+            saveProjectsToLocalStorage()
             content.innerHTML = ""
             populateNav()
             focusNav()

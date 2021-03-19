@@ -1,4 +1,4 @@
-function displayEditTaskPage(cpi, cti, task) {
+function displayEditTaskPage(cpi, cti, task, list) {
     const content = document.getElementById("content")
     content.innerHTML = ""
     content.className = "active"
@@ -8,6 +8,7 @@ function displayEditTaskPage(cpi, cti, task) {
     editTaskPage.className = "page"
     editTaskPage.dataset.projectIndex = cpi
     editTaskPage.dataset.taskIndex = cti
+    editTaskPage.dataset.list = list
     content.appendChild(editTaskPage)
 
     const h2 = document.createElement("h2")
