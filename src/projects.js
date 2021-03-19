@@ -1,5 +1,6 @@
-import { loadProjectsFromLocalStorage } from './loadProjectsFromLocalStorage'
-let myProjects = []
-myProjects = loadProjectsFromLocalStorage()
-function projects(){return myProjects}
-export { projects }
+import loadProjectsFromLocalStorage from './loadProjectsFromLocalStorage';
+
+let myProjects = [];
+myProjects = loadProjectsFromLocalStorage();
+function projects() { return myProjects; }
+export default projects;

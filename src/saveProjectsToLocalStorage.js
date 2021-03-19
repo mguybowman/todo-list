@@ -1,60 +1,60 @@
-import { storageAvailable } from './storageAvailable'
-import { projects } from './projects'
+import storageAvailable from './storageAvailable';
+import projects from './projects';
 
-function saveProjectsToLocalStorage(){
-    if (storageAvailable('localStorage')){
-        localStorage.clear()
-        localStorage.setItem('projects.length', projects().length)
-        for (let i = 0; i < projects().length; i++) {
-            const projectIndex = 'projects[' + i + ']'
+function saveProjectsToLocalStorage() {
+  if (storageAvailable('localStorage')) {
+    localStorage.clear();
+    localStorage.setItem('projects.length', projects().length);
+    for (let i = 0; i < projects().length; i += 1) {
+      const projectIndex = `projects[${i}]`;
 
-            const projectTitle = projects()[i].title
-            localStorage.setItem(projectIndex + '.title', projectTitle)
+      const projectTitle = projects()[i].title;
+      localStorage.setItem(`${projectIndex}.title`, projectTitle);
 
-            const projectColor = projects()[i].color
-            localStorage.setItem(projectIndex + '.color', projectColor)
+      const projectColor = projects()[i].color;
+      localStorage.setItem(`${projectIndex}.color`, projectColor);
 
-            const projectTasks = projectIndex + '.tasks'
-            localStorage.setItem(projectTasks + '.length', projects()[i].tasks.length)
-            
-            for (let j = 0; j < projects()[i].tasks.length; j++) {
-                const taskIndex = projectTasks + '[' + j + ']'
+      const projectTasks = `${projectIndex}.tasks`;
+      localStorage.setItem(`${projectTasks}.length`, projects()[i].tasks.length);
 
-                const taskTitle = projects()[i].tasks[j].title
-                localStorage.setItem(taskIndex + '.title', taskTitle)
+      for (let j = 0; j < projects()[i].tasks.length; j += 1) {
+        const taskIndex = `${projectTasks}[${j}]`;
 
-                const taskDescription = projects()[i].tasks[j].description
-                localStorage.setItem(taskIndex + '.description', taskDescription)
+        const taskTitle = projects()[i].tasks[j].title;
+        localStorage.setItem(`${taskIndex}.title`, taskTitle);
 
-                const taskDueDate = projects()[i].tasks[j].dueDate
-                localStorage.setItem(taskIndex + '.dueDate', taskDueDate)
+        const taskDescription = projects()[i].tasks[j].description;
+        localStorage.setItem(`${taskIndex}.description`, taskDescription);
 
-                const taskPriority = projects()[i].tasks[j].priority
-                localStorage.setItem(taskIndex + '.priority', taskPriority)
-            }
+        const taskDueDate = projects()[i].tasks[j].dueDate;
+        localStorage.setItem(`${taskIndex}.dueDate`, taskDueDate);
 
-            const projectCompleted = projectIndex + '.completed'
-            localStorage.setItem(projectCompleted + '.length', projects()[i].completed.length)
+        const taskPriority = projects()[i].tasks[j].priority;
+        localStorage.setItem(`${taskIndex}.priority`, taskPriority);
+      }
 
-            for (let j = 0; j < projects()[i].completed.length; j++) {
-                const completedIndex = projectCompleted + '[' + j + ']'
+      const projectCompleted = `${projectIndex}.completed`;
+      localStorage.setItem(`${projectCompleted}.length`, projects()[i].completed.length);
 
-                const completedTitle = projects()[i].completed[j].title
-                localStorage.setItem(completedIndex + '.title', completedTitle)
+      for (let j = 0; j < projects()[i].completed.length; j += 1) {
+        const completedIndex = `${projectCompleted}[${j}]`;
 
-                const completedDescription = projects()[i].completed[j].description
-                localStorage.setItem(completedIndex + '.description', completedDescription)
+        const completedTitle = projects()[i].completed[j].title;
+        localStorage.setItem(`${completedIndex}.title`, completedTitle);
 
-                const completedDueDate = projects()[i].completed[j].dueDate
-                localStorage.setItem(completedIndex + '.dueDate', completedDueDate)
+        const completedDescription = projects()[i].completed[j].description;
+        localStorage.setItem(`${completedIndex}.description`, completedDescription);
 
-                const completedPriority = projects()[i].completed[j].priority
-                localStorage.setItem(completedIndex + '.priority', completedPriority)
-            }
+        const completedDueDate = projects()[i].completed[j].dueDate;
+        localStorage.setItem(`${completedIndex}.dueDate`, completedDueDate);
 
-            localStorage.setItem(projectCompleted + '.length', projects()[i].completed.length)
-        }
+        const completedPriority = projects()[i].completed[j].priority;
+        localStorage.setItem(`${completedIndex}.priority`, completedPriority);
+      }
+
+      localStorage.setItem(`${projectCompleted}.length`, projects()[i].completed.length);
     }
+  }
 }
 
-export {saveProjectsToLocalStorage}
+export default saveProjectsToLocalStorage;

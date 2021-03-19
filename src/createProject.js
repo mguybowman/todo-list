@@ -1,8 +1,10 @@
 const createProject = (title) => {
-    let color = "gray"
-    let tasks = []
-    let completed = []
-    return { title, color, tasks, completed }
-}
+  const color = 'gray';
+  const tasks = [];
+  const completed = [];
+  return {
+    title, color, tasks, completed,
+  };
+};
 
-export { createProject }
+export default createProject;
